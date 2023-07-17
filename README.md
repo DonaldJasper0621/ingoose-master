@@ -1,28 +1,15 @@
 # igoose-master
 
-# Voice Conversion
+# igoose
 
-## [kmic_demo_2023q2_sr_22050_nfft_512_hop_128](conf/kmic_demo_2023q2_sr_22050_nfft_512_hop_128)
+## Install
 
-* sample rate: 22050
-* `n_fft`: 512
-* mel `hop_length`: 128
-* `n_mels`: 80
+- Install Python >= 3.10
+- Install [PyTorch](https://pytorch.org/) (tested with `torch.__version__=='2.0.1'`, `torchaudio.__version__=='2.0.2'` and `torchvision.__version__=='0.15.2'`)
+- Run `python -m pip install cython` for `youtokentome` (`nemo`'s dependency) installation.
+- Run `python -m pip install -e .`
+- Run `python -m pip install pre-commit && pre-commit install`
 
-### Experiments
+## Examples
 
-#### [debug](conf/kmic_demo_2023q2_sr_22050_nfft_512_hop_128/experiment/debug.yaml)
-
-To train on speeches from 1 speakers, run
-
-```cmd
-CUDA_VISIBLE_DEVICES=0 NUMPY_MADVISE_HUGEPAGE=0 OMP_NUM_THREADS=1 python train.py --config-path=conf/kmic_demo_2023q2_sr_22050_nfft_512_hop_128 +experiment=debug
-```
-
-Note that it may not converge as the training batch size is small.
-
-To pre-compute features (f0, loudness & frame content) of audios, run
-
-```cmd
-CUDA_VISIBLE_DEVICES=0 NUMPY_MADVISE_HUGEPAGE=0 OMP_NUM_THREADS=1 python precompute_features.py --config-path=conf/kmic_demo_2023q2_sr_22050_nfft_512_hop_128 audio_root_folder=AUDIO_FOLDER
-```
+See [examples](examples).
