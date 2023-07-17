@@ -1,0 +1,48 @@
+train_dataset_conf:
+  _target_: igoose.dataset_wrappers.miscs.RandomDatasetMixture
+  dataset_and_weight_pairs:
+    - - _target_: igoose.datasets.audios.WavFolder
+        root_folder: /share/data2/datasets/pwcheng/debug/TSP_speech/48k/FA/
+        sample_rate: 22050
+        cache: true
+      - 1.0
+    - - _target_: igoose.datasets.audios.WavFolder
+        root_folder: /share/data2/datasets/pwcheng/debug/TSP_speech/48k/MA/
+        sample_rate: 22050
+        cache: true
+      - 1.0
+  transforms:
+    # TODO(pwcheng): Reorder the following transforms.
+    - _target_: igoose.transforms.signal_transforms.ComputeF0Parselmouth
+      sample_rate: 22050
+      hop_length: 128
+      f0_floor: 70.0
+      f0_ceiling: 1100.0
+      silence_threshold: 0.03
+      voicing_threshold: 0.0
+      very_accurate: true
+    - _target_: igoose.transforms.signal_transforms.RandomShiftF0
+      sample_rate: 22050
+      num_steps_min: -12.0
+      num_steps_max: 12.0
+      num_steps_per_octave: 12.0
+      f0_key_and_f0_hop_length_pair: [f0, 128]
+    - _target_: igoose.transforms.signal_transforms.AtMostLength
+      length_max: 8192
+      random_crop: true
+      signal_key_to_hop_length:
+        signal: 1
+        f0: 128
+      signal_key_to_output_padding:
+        f0: 1
+    - _target_: igoose.transforms.signal_transforms.RandomIIRFiltering
+      order_min: 2
+      order_max: 3
+      b_a_abs_max: 0.2
+      probability: 0.7
+    - _target_: igoose.transforms.signal_transforms.RandomMagnitude
+      magnitude_min: 0.05
+      magnitude_max: 0.95
+train_data_loader_kwargs:
+  batch_size: 3
+  num_workers: 0

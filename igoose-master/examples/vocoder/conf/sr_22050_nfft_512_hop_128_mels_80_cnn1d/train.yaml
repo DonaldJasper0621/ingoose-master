@@ -1,0 +1,46 @@
+defaults:
+  - data_module_conf: ???
+  - gan_specs@task_conf.name_to_gan_spec_conf: ???
+  - losses@task_conf.loss_confs: ???
+  - _self_
+hydra:
+  job:
+    chdir: true
+  run:
+    dir: model_dir/vocoder/sr_22050_nfft_512_hop_128_mels_80_cnn1d/
+trainer_conf:
+  _target_: pytorch_lightning.Trainer
+  accelerator: gpu
+  devices: 1
+  benchmark: true
+  max_epochs: -1
+  val_check_interval: 3750
+task_conf:
+  _recursive_: false
+  _target_: igoose.tasks.codecs.GANCodec
+  encoder_conf:
+    _target_: igoose.tasks.backbones.mel_spectrograms.Log10MelSpectrogram
+    sample_rate: 22050
+    n_fft: 512
+    hop_length: 128
+    n_mels: 80
+    f_min: 50.0
+    power: 1.0
+    pad_mode: reflect
+    norm: slaney
+    mel_scale: slaney
+    log_input_clamp_min: 1e-10
+  decoder_conf: ???
+  optimizer_conf:
+    _target_: torch.optim.AdamW
+    lr: 0.0002
+    betas: [0.8, 0.99]
+    weight_decay: 0.01
+  scheduler_configuration_conf:
+    scheduler:
+      _target_: torch.optim.lr_scheduler.ExponentialLR
+      gamma: 0.999
+  gradient_clip_val: 1000.0
+  discriminator_gradient_clip_val: 1000.0
+  val_name_to_metric_conf_map: ${data_module_conf.val_name_to_metric_conf_map}
+  learning_rate_scheduler_step_interval: 3750

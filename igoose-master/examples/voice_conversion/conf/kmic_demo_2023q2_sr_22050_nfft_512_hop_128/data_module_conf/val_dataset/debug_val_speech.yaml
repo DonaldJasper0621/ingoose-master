@@ -1,0 +1,20 @@
+val_name_to_dataset_conf:
+  train_speech:
+    _target_: igoose.datasets.audios.WavFolder
+    root_folder: /share/data2/datasets/pwcheng/debug/voice_conversion/speaker_0
+    key_to_metadata_pt_name_suffix:
+      code: log_mel
+      loudness: loudness
+      f0: f0
+      frame_content: frame_content
+val_name_to_data_loader_kwargs:
+  train_speech:
+    pin_memory: true
+    batch_size: 4
+    num_workers: 0
+val_name_to_metric_conf_map:
+  train_speech:
+    code_l1_error:
+      _target_: igoose.metrics.regression.L1Error
+      prediction_key: code
+      target_data_key: code

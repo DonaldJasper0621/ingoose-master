@@ -1,0 +1,14 @@
+# @package _global_
+defaults:
+  - override /data_module_conf: debug_speech
+hydra:
+  run:
+    dir: model_dir/vocoder/sr_22050_nfft_512_hop_128/debug/
+trainer_conf:
+  val_check_interval: 1
+  num_sanity_val_steps: 1
+  callbacks:
+    - _target_: pytorch_lightning.callbacks.TQDMProgressBar
+      refresh_rate: 1
+    - _target_: pytorch_lightning.callbacks.LearningRateMonitor
+      logging_interval: step

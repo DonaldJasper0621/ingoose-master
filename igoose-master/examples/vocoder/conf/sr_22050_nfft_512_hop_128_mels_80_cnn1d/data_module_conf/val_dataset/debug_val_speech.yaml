@@ -1,0 +1,26 @@
+val_name_to_dataset_conf:
+  debug_val_speech:
+    _target_: igoose.datasets.audios.WavFolder
+    root_folder: /share/data2/datasets/pwcheng/debug/TSP_speech/48k/FB/
+    sample_rate: 22050
+    cache: true
+    transforms:
+      - _target_: igoose.transforms.signal_transforms.ComputeF0Parselmouth
+        sample_rate: 22050
+        hop_length: 128
+        f0_floor: 70.0
+        f0_ceiling: 1100.0
+        silence_threshold: 0.03
+        voicing_threshold: 0.0
+        very_accurate: true
+val_name_to_data_loader_kwargs:
+  debug_val_speech:
+    pin_memory: true
+    batch_size: 4
+    num_workers: 0
+val_name_to_metric_conf_map:
+  debug_val_speech:
+    code_l1_error:
+      _target_: igoose.metrics.regression.L1Error
+      prediction_key: code
+      target_data_key: target_code

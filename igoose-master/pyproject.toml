@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools"]
+
+[tool.black]
+line-length = 88
+target-version = ["py310"]
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+# See https://github.com/PyCQA/isort/blob/473d150c1db60f4614a574e30993e9e0d3ca0cce/isort/profiles.py#L23-L30.
+force_single_line = true
+force_sort_within_sections = true
+lexicographical = true
+single_line_exclusions = ["typing"]
+order_by_type = false
+group_by_package = true

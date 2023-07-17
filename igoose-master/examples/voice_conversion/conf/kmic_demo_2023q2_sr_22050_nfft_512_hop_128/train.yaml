@@ -1,0 +1,133 @@
+defaults:
+  - data_module_conf: ???
+  - _self_
+hydra:
+  job:
+    chdir: true
+  run:
+    dir: model_dir/voice_conversion/kmic_demo_2023q2_sr_22050_nfft_512_hop_128_mels_80/
+trainer_conf:
+  _target_: pytorch_lightning.Trainer
+  precision: 16
+  accelerator: gpu
+  devices: 1
+  benchmark: true
+  max_epochs: -1
+  val_check_interval: 3750
+task_conf:
+  _recursive_: false
+  _target_: igoose.tasks.voice_converters.GANVoiceConverter
+  sample_rate: 22050
+  global_style_feature_extractor_input_sample_rate: 16000
+  global_style_feature_extractor_conf:
+    _target_: igoose.tasks.backbones.kmic_demo_2023q2.global_style_feature_extractors.MultiScaleMeans
+  voice_synthesizer_conf:
+    _target_: igoose.tasks.backbones.kmic_demo_2023q2.voice_synthesis_models.ConditionalVoiceSynthesisBackbone
+    f0_floor: 48.9994295
+    f0_ceiling: 783.990872
+    loudness_min: -5.0
+    loudness_max: 0.5
+    content_num_channels: 128
+    num_output_channels: 80
+    num_output_speaker_embedding_channels: 5120
+  pretrained_decoder_checkpoint_path: pretrained_checkpoints/kmic_demo_2023q2_sr_22050_nfft_512_hop_128_decoder.ckpt
+  name_to_gan_spec_conf:
+    CodeCNN_0:
+      _target_: igoose.tasks.gan_bases.GANSpec
+      discriminator_conf:
+        _target_: igoose.nn.zoo.kmic_demo_2023q2_discriminators.TimeStride16CNN2dDiscriminator
+      discriminator_gan_loss_scale: 10.0
+      generator_gan_loss_scale: 10.0
+      fake_data_and_real_data_pair_names: [code]
+      feature_matching_loss_scale: 2.0
+      feature_matching_node_names:
+        - sequential.1
+        - sequential.3
+        - sequential.5
+        - sequential.7
+        - sequential.9
+      feature_matching_node_name_to_time_stride:
+        sequential.1: 2
+        sequential.3: 4
+        sequential.5: 8
+        sequential.7: 16
+        sequential.9: 16
+      feature_matching_node_name_to_loss_scale:
+        sequential.1: 2560
+        sequential.3: 1280
+        sequential.5: 1280
+        sequential.7: 640
+        sequential.9: 640
+      score_node_name: sequential.10
+    CodeCNN_1:
+      _target_: igoose.tasks.gan_bases.GANSpec
+      discriminator_conf:
+        _target_: igoose.nn.zoo.kmic_demo_2023q2_discriminators.TimeStride16CNN2dDiscriminator
+      discriminator_gan_loss_scale: 10.0
+      generator_gan_loss_scale: 10.0
+      fake_data_and_real_data_pair_names: [code]
+      feature_matching_loss_scale: 2.0
+      feature_matching_node_names:
+        - sequential.1
+        - sequential.3
+        - sequential.5
+        - sequential.7
+        - sequential.9
+      feature_matching_node_name_to_time_stride:
+        sequential.1: 2
+        sequential.3: 4
+        sequential.5: 8
+        sequential.7: 16
+        sequential.9: 16
+      feature_matching_node_name_to_loss_scale:
+        sequential.1: 2560
+        sequential.3: 1280
+        sequential.5: 1280
+        sequential.7: 640
+        sequential.9: 640
+      score_node_name: sequential.10
+    CodeCNN_2:
+      _target_: igoose.tasks.gan_bases.GANSpec
+      discriminator_conf:
+        _target_: igoose.nn.zoo.kmic_demo_2023q2_discriminators.TimeStride16CNN2dDiscriminator
+      discriminator_gan_loss_scale: 10.0
+      generator_gan_loss_scale: 10.0
+      fake_data_and_real_data_pair_names: [code]
+      feature_matching_loss_scale: 2.0
+      feature_matching_node_names:
+        - sequential.1
+        - sequential.3
+        - sequential.5
+        - sequential.7
+        - sequential.9
+      feature_matching_node_name_to_time_stride:
+        sequential.1: 2
+        sequential.3: 4
+        sequential.5: 8
+        sequential.7: 16
+        sequential.9: 16
+      feature_matching_node_name_to_loss_scale:
+        sequential.1: 2560
+        sequential.3: 1280
+        sequential.5: 1280
+        sequential.7: 640
+        sequential.9: 640
+      score_node_name: sequential.10
+  loss_confs:
+    - _target_: igoose.losses.regression.L1Loss
+      prediction_key: code
+      target_key: code
+      loss_scale: 45.0
+  optimizer_conf:
+    _target_: torch.optim.AdamW
+    lr: 0.0001
+    betas: [0.8, 0.99]
+    weight_decay: 0.01
+  scheduler_configuration_conf:
+    scheduler:
+      _target_: torch.optim.lr_scheduler.ExponentialLR
+      gamma: 1.0
+  gradient_clip_val: 1000.0
+  discriminator_gradient_clip_val: 1000.0
+  val_name_to_metric_conf_map: ${data_module_conf.val_name_to_metric_conf_map}
+  learning_rate_scheduler_step_interval: 99999999

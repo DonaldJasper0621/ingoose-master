@@ -1,0 +1,13 @@
+_target_: igoose.tasks.backbones.mel_spectrograms.Log10MelSpectrogram
+sample_rate: ???
+n_fft: 512
+hop_length: 128
+n_mels: 80
+f_min: 50.0
+power: 1.0
+pad_mode: reflect
+norm: slaney
+mel_scale: slaney
+log_input_clamp_min: 1e-10
+output_loudness_key: loudness
+log_loudness_clamp_min: 1e-10

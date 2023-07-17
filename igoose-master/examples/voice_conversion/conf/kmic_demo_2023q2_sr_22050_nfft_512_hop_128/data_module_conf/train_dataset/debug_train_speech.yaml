@@ -1,0 +1,13 @@
+train_dataset_conf:
+  _target_: igoose.datasets.audios.WavFolder
+  root_folder: /share/data2/datasets/pwcheng/debug/voice_conversion/speaker_0
+  key_to_metadata_pt_name_suffix:
+    code: log_mel
+    loudness: loudness
+    f0: f0
+    frame_content: frame_content
+    speaker_embedding: speaker_embedding
+  cache: true
+train_data_loader_kwargs:
+  batch_size: 2
+  num_workers: 0

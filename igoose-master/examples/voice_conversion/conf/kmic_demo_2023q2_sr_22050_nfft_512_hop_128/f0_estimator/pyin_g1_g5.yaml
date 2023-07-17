@@ -1,0 +1,7 @@
+_target_: igoose.tasks.backbones.f0_estimators.LibrosaF0Estimator
+sample_rate: ???
+hop_length: 128
+f0_floor: 48.9994295
+f0_ceiling: 783.990872
+frame_length: 2048
+input_magnitude: 0.01

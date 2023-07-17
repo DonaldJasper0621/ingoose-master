@@ -1,0 +1,6 @@
+defaults:
+  - train_dataset@_here_: debug_train_speech
+  - val_dataset@_here_: debug_val_speech
+_recursive_: false
+_target_: igoose.data_modules.BasicDataModule
+collate_fn_pad_mode: wrap

@@ -1,0 +1,23 @@
+- _target_: igoose.losses.signal_losses.MultiResolutionLogMelL1Loss
+  sample_rate: 22050
+  n_fft_and_win_length_and_hop_length_and_n_mels_tuples:
+    - [512, 512, 128, 80]
+    - [1024, 1024, 256, 160]
+    - [1536, 1536, 384, 240]
+  power: 1.0
+  pad_mode: reflect
+  norm: slaney
+  mel_scale: slaney
+  loss_scale: 45.0
+  normalized_loss_by_num_mels: true
+- _target_: igoose.losses.signal_losses.MultiResolutionSTFTMagnitudeL1Loss
+  n_fft_and_win_length_and_hop_length_tuples:
+    - [512, 240, 50]
+    - [1024, 600, 120]
+    - [2048, 1120, 240]
+  loss_scale: 45.0
+  normalized_loss_by_num_stfts: true
+- _target_: igoose.losses.signal_losses.TimeDomainEnvelopL1Loss
+  kernel_size: 100
+  stride: 50
+  loss_scale: 1.0

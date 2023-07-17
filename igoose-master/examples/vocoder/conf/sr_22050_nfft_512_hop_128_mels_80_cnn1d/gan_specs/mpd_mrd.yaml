@@ -1,0 +1,142 @@
+MPD_period_2:
+  _target_: igoose.tasks.gan_bases.GANSpec
+  discriminator_conf:
+    _target_: igoose.nn.discriminators.MPDDiscriminator
+    period: 2
+  discriminator_gan_loss_scale: 1.0
+  generator_gan_loss_scale: 1.0
+  fake_data_and_real_data_pair_names: [signal]
+  feature_matching_loss_scale: 2.0
+  feature_matching_node_names:
+    - sequential.1
+    - sequential.3
+    - sequential.5
+    - sequential.7
+    - sequential.9
+    - sequential.10
+  score_node_name: sequential.10
+MPD_period_3:
+  _target_: igoose.tasks.gan_bases.GANSpec
+  discriminator_conf:
+    _target_: igoose.nn.discriminators.MPDDiscriminator
+    period: 3
+  discriminator_gan_loss_scale: 1.0
+  generator_gan_loss_scale: 1.0
+  fake_data_and_real_data_pair_names: [signal]
+  feature_matching_loss_scale: 2.0
+  feature_matching_node_names:
+    - sequential.1
+    - sequential.3
+    - sequential.5
+    - sequential.7
+    - sequential.9
+    - sequential.10
+  score_node_name: sequential.10
+MPD_period_5:
+  _target_: igoose.tasks.gan_bases.GANSpec
+  discriminator_conf:
+    _target_: igoose.nn.discriminators.MPDDiscriminator
+    period: 5
+  discriminator_gan_loss_scale: 1.0
+  generator_gan_loss_scale: 1.0
+  fake_data_and_real_data_pair_names: [signal]
+  feature_matching_loss_scale: 2.0
+  feature_matching_node_names:
+    - sequential.1
+    - sequential.3
+    - sequential.5
+    - sequential.7
+    - sequential.9
+    - sequential.10
+  score_node_name: sequential.10
+MPD_period_7:
+  _target_: igoose.tasks.gan_bases.GANSpec
+  discriminator_conf:
+    _target_: igoose.nn.discriminators.MPDDiscriminator
+    period: 7
+  discriminator_gan_loss_scale: 1.0
+  generator_gan_loss_scale: 1.0
+  fake_data_and_real_data_pair_names: [signal]
+  feature_matching_loss_scale: 2.0
+  feature_matching_node_names:
+    - sequential.1
+    - sequential.3
+    - sequential.5
+    - sequential.7
+    - sequential.9
+    - sequential.10
+  score_node_name: sequential.10
+MPD_period_11:
+  _target_: igoose.tasks.gan_bases.GANSpec
+  discriminator_conf:
+    _target_: igoose.nn.discriminators.MPDDiscriminator
+    period: 11
+  discriminator_gan_loss_scale: 1.0
+  generator_gan_loss_scale: 1.0
+  fake_data_and_real_data_pair_names: [signal]
+  feature_matching_loss_scale: 2.0
+  feature_matching_node_names:
+    - sequential.1
+    - sequential.3
+    - sequential.5
+    - sequential.7
+    - sequential.9
+    - sequential.10
+  score_node_name: sequential.10
+MRD_512_240_50:
+  _target_: igoose.tasks.gan_bases.GANSpec
+  discriminator_conf:
+    _target_: igoose.nn.discriminators.MRDDiscriminator
+    n_fft: 512
+    win_length: 240
+    hop_length: 50
+  discriminator_gan_loss_scale: 1.0
+  generator_gan_loss_scale: 1.0
+  fake_data_and_real_data_pair_names: [signal]
+  feature_matching_loss_scale: 2.0
+  feature_matching_node_names:
+    - sequential.1
+    - sequential.3
+    - sequential.5
+    - sequential.7
+    - sequential.9
+    - sequential.10
+  score_node_name: sequential.10
+MRD_1024_600_120:
+  _target_: igoose.tasks.gan_bases.GANSpec
+  discriminator_conf:
+    _target_: igoose.nn.discriminators.MRDDiscriminator
+    n_fft: 1024
+    win_length: 600
+    hop_length: 120
+  discriminator_gan_loss_scale: 1.0
+  generator_gan_loss_scale: 1.0
+  fake_data_and_real_data_pair_names: [signal]
+  feature_matching_loss_scale: 2.0
+  feature_matching_node_names:
+    - sequential.1
+    - sequential.3
+    - sequential.5
+    - sequential.7
+    - sequential.9
+    - sequential.10
+  score_node_name: sequential.10
+MRD_2048_1200_240:
+  _target_: igoose.tasks.gan_bases.GANSpec
+  discriminator_conf:
+    _target_: igoose.nn.discriminators.MRDDiscriminator
+    n_fft: 2048
+    win_length: 1200
+    hop_length: 240
+  discriminator_gan_loss_scale: 1.0
+  generator_gan_loss_scale: 1.0
+  fake_data_and_real_data_pair_names: [signal]
+  feature_matching_loss_scale: 2.0
+  feature_matching_node_names:
+    - sequential.1
+    - sequential.3
+    - sequential.5
+    - sequential.7
+    - sequential.9
+    - sequential.10
+  score_node_name: sequential.10

@@ -1,0 +1,2 @@
+_target_: igoose.tasks.backbones.kmic_demo_2023q2.frame_content_feature_extractors.PretrainedNeMoSTTConformerBackbone
+sample_rate: ???
