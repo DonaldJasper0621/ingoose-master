@@ -28,7 +28,7 @@ Before you start exploring the goose wonderland, make sure you have the necessar
 python -m pip install cython
 python -m pip install -e .
 python -m pip install pre-commit && pre-commit install
-
+```
 ## Usage Examples
 
 Dive into the world of geese with our collection of interactive examples. Discover the beauty and versatility of our goose-related tools by exploring the `examples` directory. From honking to flapping, our examples cover it all.
@@ -40,7 +40,7 @@ import igoose
 
 goose = igoose.Goose()
 goose.honk()
-
+```
 ## Contributing
 
 We welcome contributions from fellow goose enthusiasts like you. Whether you're fixing a bug, adding a new feature, or improving documentation, your contributions make iGoose even more incredible.
